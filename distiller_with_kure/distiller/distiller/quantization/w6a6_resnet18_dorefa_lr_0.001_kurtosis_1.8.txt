@@ -1,0 +1,241 @@
+Log file for this run: /data/moran/distiller_KURE_2/Robust_Quantization_With_KURE/distiller_with_kure/distiller/distiller/quantization/logs/2020.06.08-172648/2020.06.08-172648.log
+Random seed: 97843
+=> created a resnet18 model with the imagenet dataset
+The "--resume" flag is deprecated. Please use "--resume-from=YOUR_PATH" instead.
+If you wish to also reset the optimizer, call with: --reset-optimizer
+=> loading checkpoint ../../examples/classifier_compression/logs/2020.06.07-115139/best.pth.tar
+=> Checkpoint contents:
++----------------------+-------------+----------+
+| Key                  | Type        | Value    |
+|----------------------+-------------+----------|
+| arch                 | str         | resnet18 |
+| compression_sched    | dict        |          |
+| dataset              | str         | imagenet |
+| epoch                | int         | 39       |
+| extras               | dict        |          |
+| is_parallel          | bool        | True     |
+| optimizer_state_dict | dict        |          |
+| optimizer_type       | type        | SGD      |
+| quantizer_metadata   | dict        |          |
+| state_dict           | OrderedDict |          |
++----------------------+-------------+----------+
+
+=> Checkpoint['extras'] contents:
++--------------+--------+---------+
+| Key          | Type   |   Value |
+|--------------+--------+---------|
+| best_epoch   | int    |  39     |
+| best_top1    | float  |  69.642 |
+| current_top1 | float  |  69.642 |
++--------------+--------+---------+
+
+Loaded compression schedule from checkpoint (epoch 39)
+Loaded quantizer metadata from the checkpoint
+Optimizer of type <class 'torch.optim.sgd.SGD'> was loaded from checkpoint
+Optimizer Args: {'nesterov': False, 'weight_decay': 0.0001, 'momentum': 0.9, 'initial_lr': 0.001, 'dampening': 0, 'lr': 0.0001}
+Preparing model for quantization using DorefaQuantizer
+Parameter 'module.layer1.0.conv1.weight' will be quantized to 6 bits
+Parameter 'module.layer1.0.conv2.weight' will be quantized to 6 bits
+Parameter 'module.layer1.1.conv1.weight' will be quantized to 6 bits
+Parameter 'module.layer1.1.conv2.weight' will be quantized to 6 bits
+Parameter 'module.layer2.0.conv1.weight' will be quantized to 6 bits
+Parameter 'module.layer2.0.conv2.weight' will be quantized to 6 bits
+Parameter 'module.layer2.0.downsample.0.weight' will be quantized to 6 bits
+Parameter 'module.layer2.1.conv1.weight' will be quantized to 6 bits
+Parameter 'module.layer2.1.conv2.weight' will be quantized to 6 bits
+Parameter 'module.layer3.0.conv1.weight' will be quantized to 6 bits
+Parameter 'module.layer3.0.conv2.weight' will be quantized to 6 bits
+Parameter 'module.layer3.0.downsample.0.weight' will be quantized to 6 bits
+Parameter 'module.layer3.1.conv1.weight' will be quantized to 6 bits
+Parameter 'module.layer3.1.conv2.weight' will be quantized to 6 bits
+Parameter 'module.layer4.0.conv1.weight' will be quantized to 6 bits
+Parameter 'module.layer4.0.conv2.weight' will be quantized to 6 bits
+Parameter 'module.layer4.0.downsample.0.weight' will be quantized to 6 bits
+Parameter 'module.layer4.1.conv1.weight' will be quantized to 6 bits
+Parameter 'module.layer4.1.conv2.weight' will be quantized to 6 bits
+Quantized model:
+
+DataParallel(
+  (module): ResNet(
+    (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+    (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+    (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+    (layer1): Sequential(
+      (0): DistillerBasicBlock(
+        (conv1): Conv2d(
+          64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu1): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+        (conv2): Conv2d(
+          64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (add): EltwiseAdd()
+        (relu2): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+      )
+      (1): DistillerBasicBlock(
+        (conv1): Conv2d(
+          64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu1): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+        (conv2): Conv2d(
+          64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (add): EltwiseAdd()
+        (relu2): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+      )
+    )
+    (layer2): Sequential(
+      (0): DistillerBasicBlock(
+        (conv1): Conv2d(
+          64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu1): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+        (conv2): Conv2d(
+          128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (downsample): Sequential(
+          (0): Conv2d(
+            64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False, 
+            Distiller_QuantAwareTrain: weight --> 6 bits
+          )
+          (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (add): EltwiseAdd()
+        (relu2): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+      )
+      (1): DistillerBasicBlock(
+        (conv1): Conv2d(
+          128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu1): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+        (conv2): Conv2d(
+          128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (add): EltwiseAdd()
+        (relu2): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+      )
+    )
+    (layer3): Sequential(
+      (0): DistillerBasicBlock(
+        (conv1): Conv2d(
+          128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu1): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+        (conv2): Conv2d(
+          256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (downsample): Sequential(
+          (0): Conv2d(
+            128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False, 
+            Distiller_QuantAwareTrain: weight --> 6 bits
+          )
+          (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (add): EltwiseAdd()
+        (relu2): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+      )
+      (1): DistillerBasicBlock(
+        (conv1): Conv2d(
+          256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu1): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+        (conv2): Conv2d(
+          256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (add): EltwiseAdd()
+        (relu2): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+      )
+    )
+    (layer4): Sequential(
+      (0): DistillerBasicBlock(
+        (conv1): Conv2d(
+          256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu1): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+        (conv2): Conv2d(
+          512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (downsample): Sequential(
+          (0): Conv2d(
+            256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False, 
+            Distiller_QuantAwareTrain: weight --> 6 bits
+          )
+          (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (add): EltwiseAdd()
+        (relu2): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+      )
+      (1): DistillerBasicBlock(
+        (conv1): Conv2d(
+          512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu1): ClippedLinearQuantization(num_bits=6, clip_val=1, inplace)
+        (conv2): Conv2d(
+          512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False, 
+          Distiller_QuantAwareTrain: weight --> 6 bits
+        )
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (add): EltwiseAdd()
+        (relu2): ReLU(inplace=True)
+      )
+    )
+    (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+    (fc): Linear(in_features=512, out_features=1000, bias=True)
+  )
+)
+
+Optimizer of type <class 'torch.optim.sgd.SGD'> was loaded from checkpoint
+Optimizer Args: {'nesterov': False, 'weight_decay': 0.0001, 'momentum': 0.9, 'initial_lr': 0.001, 'dampening': 0, 'lr': 0.0001}
+=> loaded checkpoint '../../examples/classifier_compression/logs/2020.06.07-115139/best.pth.tar' (epoch 39)
+
+reset_optimizer flag set: Overriding resumed optimizer and resetting epoch count to 0
+Dataset sizes:
+	test=50000
+Loading checkpoint from ../../examples/classifier_compression/logs/2020.06.07-115139/best.pth.tar
+START
+Could not find the logger configuration file (logging.conf) - using default logger configuration
+
+--------------------------------------------------------
+Logging to TensorBoard - remember to execute the server:
+> tensorboard --logdir='./logs'
+
+best point: [6, 1.2357394628378806, 69.64200000000001]
+[x, loss, top1] = [2, 9.820947822259393, 0.24600000000000177]
+[x, loss, top1] = [3, 2.435943455112225, 47.465999999999994]
+[x, loss, top1] = [4, 1.3309818901577777, 67.604]
+[x, loss, top1] = [5, 1.263058923336925, 69.094]
+[x, loss, top1] = [6, 1.235210072021095, 69.64200000000001]
+[x, loss, top1] = [8, 1.2433480222006232, 69.454]
+[x, loss, top1] = [fp32, 1.2413447912858462, 69.46799999999999]
+Data saved to resnet18_WALLANone_BCWF.pkl

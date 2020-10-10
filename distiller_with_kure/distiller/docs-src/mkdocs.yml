@@ -1,0 +1,38 @@
+site_name: Neural Network Distiller
+theme: readthedocs
+site_description: 'Distiller Documentation by Intel AI'
+use_directory_urls: False
+site_dir: ../docs
+markdown_extensions:
+- mdx_math:
+    enable_dollar_delimiter: True #for use of inline $..$
+- admonition
+
+extra_javascript: ['https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML']
+extra_css: [extra.css]
+
+
+nav:
+  - Home: index.md
+  - Installation: install.md
+  - Usage: usage.md
+  - Compression Scheduling: schedule.md
+  - Preparing a Model for Quantization: prepare_model_quant.md
+  - Compressing Models:
+    - Pruning: pruning.md
+    - Regularization: regularization.md
+    - Quantization: quantization.md
+    - Knowledge Distillation: knowledge_distillation.md
+    - Conditional Computation: conditional_computation.md
+  - Algorithms:
+    - Pruning: algo_pruning.md
+    - Quantization: algo_quantization.md
+    - Early Exit: algo_earlyexit.md
+  - Model Zoo: model_zoo.md
+  - Jupyter Notebooks: jupyter.md
+  - Design: design.md
+  - Tutorials:
+    - Pruning Filters and Channels: tutorial-struct_pruning.md
+    - Pruning a Language Model: tutorial-lang_model.md
+    - Quantizing a Language Model: tutorial-lang_model_quant.md
+    - Quantizing GNMT: tutorial-gnmt_quant.md

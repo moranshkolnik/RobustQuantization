@@ -1,0 +1,84 @@
+#
+# This schedule performs 3D (filter-wise) regularization of some of the convolution layers, together with
+# element-wise pruning using sensitivity-pruning.
+#
+# time python3 compress_classifier.py -a=vgg19 -p=50 ../../../data.imagenet --epochs=10 --lr=0.00001 --compress=../pruning_filters_for_efficient_convnets/vgg19.schedule_filter_rank.yaml --pretrained
+#
+
+
+version: 1
+pruners:
+  vgg_manual:
+    class: 'L1RankedStructureParameterPruner'
+    group_type: Filters
+    desired_sparsity: 0.1
+    weights: [
+      features.module.2.weight,
+      features.module.5.weight,
+      features.module.7.weight,
+      features.module.10.weight,
+      features.module.12.weight,
+      features.module.14.weight,
+      features.module.16.weight,
+      features.module.19.weight]
+
+  vgg_manual2:
+    class: 'L1RankedStructureParameterPruner'
+    group_type: Filters
+    desired_sparsity: 0.1
+    weights: [
+      features.module.21.weight,
+      features.module.23.weight,
+      features.module.25.weight,
+      features.module.28.weight,
+      features.module.30.weight,
+      features.module.32.weight,
+      features.module.34.weight]
+
+extensions:
+  net_thinner:
+      class: 'FilterRemover'
+      thinning_func_str: remove_filters
+      arch: 'vgg19'
+      dataset: 'imagenet'
+
+lr_schedulers:
+  # Learning rate decay scheduler
+  pruning_lr:
+    class: StepLR
+    step_size: 50
+    gamma: 0.10
+
+
+policies:
+  - pruner:
+      instance_name: vgg_manual
+    epochs: [0]
+
+  - extension:
+      instance_name: net_thinner
+    epochs: [0]
+
+  - pruner:
+      instance_name: vgg_manual2
+    epochs: [1]
+
+  - extension:
+      instance_name: net_thinner
+    epochs: [1]
+
+  - pruner:
+      instance_name: vgg_manual
+    epochs: [4]
+
+  - extension:
+      instance_name: net_thinner
+    epochs: [4]
+
+  - pruner:
+      instance_name: vgg_manual2
+    epochs: [5]
+
+  - extension:
+      instance_name: net_thinner
+    epochs: [5]
