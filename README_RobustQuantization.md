@@ -8,7 +8,7 @@ the project includes a zip of 2 sub-projects:
 
 ## Installation
 
-1. unzip the project: Robust_Quantization_With_KURE
+1. git clone https://github.com/moranshkolnik/RobustQuantization.git or unzip the project: Robust_Quantization_With_KURE
 2. Create a Python virtual environment
     a. create env
     ```
